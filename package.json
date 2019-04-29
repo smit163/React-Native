@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "setup-android": "react-native bundle --platform android --dev true --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && react-native run-android"
+    "setup-android": "react-native bundle --platform android --dev true --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && react-native run-android",
+    "setup-ios": "react-native bundle --platform ios --dev true --entry-file index.ios.js --bundle-output android/app/src/main/assets/index.ios.bundle --assets-dest ios/app/src/main/res && react-native run-ios"
   },
   "dependencies": {
     "@types/jest": "^24.0.12",
@@ -35,20 +36,6 @@
     "react-test-renderer": "16.8.3"
   },
   "jest": {
-    "preset": "react-native",
-    "snapshotSerializers": [
-      "./node_modules/jest-serializer-enzyme"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "setupFiles": [
-      "./setup.js"
-    ]
+    "preset": "react-native"
   }
 }
