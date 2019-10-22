@@ -1,8 +1,3 @@
-
-
-/**
- * @format
- */
 import 'react-native'
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
@@ -15,14 +10,12 @@ import { NETWORK_INTERFACE } from '../../../src/config/api';
 import { HttpLink, InMemoryCache } from 'apollo-boost';
 import toJson from 'enzyme-to-json';
 
-it('renders correctly', () => {
+it('renders correctly11', () => {
     const client = new ApolloClient({
         link: new HttpLink({ uri: NETWORK_INTERFACE }),
         cache: new InMemoryCache()
     });
- const tree = renderer.create(<ApolloProvider client={client}>
-    <App/>
-</ApolloProvider>);
+    const tree = renderer.create(<App />);
 
-expect(toJson(tree)).toMatchSnapshot();
+    expect(toJson(tree)).toMatchSnapshot();
 });

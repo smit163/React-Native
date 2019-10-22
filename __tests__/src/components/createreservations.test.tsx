@@ -1,6 +1,6 @@
 import React from 'react';
 import MakeReservation from '../../../src/components/createreservations';
-import Enzyme,{shallow}  from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
 
 
 describe('Testing ReassignLocationMenu component', () => {

@@ -1,11 +1,6 @@
-/**
- * @format
- */
-
 import { AppRegistry } from 'react-native';
 import { name as appName } from './app.json';
 import React, { Component } from 'react';
-
 
 
 import { ApolloClient } from 'apollo-client';
@@ -24,7 +19,7 @@ class Home extends Component {
     render() {
         return (
             <ApolloProvider client={client}>
-                <App/>
+                <App />
             </ApolloProvider>
         );
     }

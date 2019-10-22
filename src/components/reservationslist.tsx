@@ -10,9 +10,7 @@ interface ReservationsListProps {
   context: any;
 }
 
-
 class ReservationsList extends Component<ReservationsListProps> {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -34,15 +32,14 @@ class ReservationsList extends Component<ReservationsListProps> {
     } else {
       return '-'
     }
-
   }
 
   renderReservationsList = (items) => {
-
-    if (this.state.selectedDropDownValue && items.reservations && items.reservations.length > 0) {
+    const { selectedDropDownValue } = this.state;
+    if (selectedDropDownValue && items.reservations && items.reservations.length > 0) {
       let itemsList = []
       return items.reservations.map((item, key) => {
-        if (item.hotelName === this.state.selectedDropDownValue) {
+        if (item.hotelName === selectedDropDownValue) {
           return (<ListItem key={key} noIndent style={{ backgroundColor: "#cde1f9" }}>
             <Left>
               <Text>{item.name}</Text>
@@ -52,19 +49,13 @@ class ReservationsList extends Component<ReservationsListProps> {
                 {this.parseDate(item.arrivalDate)}
               </Text>
             </Body>
-
             <Text>{this.parseDate(item.departureDate)}</Text>
-
           </ListItem>
           )
         }
-
       }
       )
-
-
     }
-
   }
 
   navigate = () => {
@@ -73,14 +64,11 @@ class ReservationsList extends Component<ReservationsListProps> {
 
   dropDownList = (data) => {
     if (data.reservations) {
-
       return (
         data.reservations.map((item, key) => {
           if (item.id) {
             return <Picker.Item key={key} label={item.hotelName} value={item.hotelName} />
           }
-
-
         }
         )
       )
@@ -88,21 +76,17 @@ class ReservationsList extends Component<ReservationsListProps> {
   }
 
   onValueChange(value: string) {
-    debugger;
-    this.setState({
-      selectedDropDownValue: value
-    });
-
+    this.setState({ selectedDropDownValue: value });
     this.props.navigation.state.params.selectedHotel = value;
   }
 
   goBack = () => {
-    const navigateAction = this.props.navigation.goBack();
-    this.props.navigation.dispatch(navigateAction);
+    const { navigation } = this.props;
+    const navigateAction = navigation.goBack();
+    navigation.dispatch(navigateAction);
   }
 
   render() {
-    debugger;
     const { data, navigation } = this.props;
     this.state.selectedDropDownValue = navigation.getParam('selectedHotel', '');
     return (
@@ -116,9 +100,7 @@ class ReservationsList extends Component<ReservationsListProps> {
           <Body>
             <Title>Reservation List</Title>
           </Body>
-
         </Header>
-
         <Content>
           <Form>
             <Item fixedLabel>
@@ -127,9 +109,8 @@ class ReservationsList extends Component<ReservationsListProps> {
                 note
                 mode='dropdown'
                 selectedValue={this.state.selectedDropDownValue}
-                onValueChange={this.onValueChange.bind(this)}
-              >
-              {this.dropDownList(data)}
+                onValueChange={this.onValueChange.bind(this)}>
+                {this.dropDownList(data)}
               </Picker>
             </Item>
           </Form>
@@ -144,9 +125,7 @@ class ReservationsList extends Component<ReservationsListProps> {
                     Arrival
                   </Text>
                 </Body>
-
                 <Text >Departure</Text>
-
               </ListItem>
             </Separator>
             {this.renderReservationsList(data)}

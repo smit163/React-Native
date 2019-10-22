@@ -8,14 +8,11 @@ import { get_reservationList } from '../apollo/reservationlistquery';
 import { styles } from '../styles/main';
 
 
-
 class CreateReservation extends Component<Props> {
-    state: {};
     constructor(props) {
         super(props)
         this.state = { name: '', hotelName: '', arrivalDate: '', departureDate: '' };
     }
-
 
     goBack = () => {
         const navigateAction = this.props.navigation.navigate('createreservations', {
@@ -24,15 +21,15 @@ class CreateReservation extends Component<Props> {
         this.props.navigation.dispatch(navigateAction);
     }
 
+    /*
+      Success Message
+    */
     showAlert = () => {
-        Alert.alert(
-            'Reservation is Sucessful',
-            '',
-            [{ text: 'OK', onPress: () => this.goBack() }]
-        )
+        Alert.alert('Reservation is Sucessful', '', [{ text: 'OK', onPress: () => this.goBack() }])
     }
 
     render() {
+        const { name, hotelName, presentDate, arrivalDate, departureDate } = this.state;
         return (
             <Mutation mutation={create_reservation} refetchQueries={[{ query: get_reservationList }]}>
                 {(create_reservation, { data }) => (
@@ -42,23 +39,22 @@ class CreateReservation extends Component<Props> {
                             <Body>
                                 <Title>Create Reservation</Title>
                             </Body>
-
                         </Header>
                         <Content>
                             <Form>
                                 <Item>
                                     <Icon active name='ios-contact' />
-                                    <Input placeholder='Name' value={this.state.name} onChangeText={text => this.setState({ name: text })} />
+                                    <Input placeholder='Name' value={name} onChangeText={text => this.setState({ name: text })} />
                                 </Item>
                                 <Item>
                                     <Icon type="FontAwesome5" name="hotel" />
-                                    <Input placeholder='Hotel' value={this.state.hotelName} onChangeText={text => this.setState({ hotelName: text })} />
+                                    <Input placeholder='Hotel' value={hotelName} onChangeText={text => this.setState({ hotelName: text })} />
                                 </Item>
 
                                 <Item>
                                     <Label>Check-in Date:</Label>
                                     <DatePicker
-                                        defaultDate={this.state.presentDate}
+                                        defaultDate={presentDate}
                                         minimumDate={new Date(2019, 4, 30)}
                                         maximumDate={new Date(2019, 5, 30)}
                                         locale={"en"}
@@ -75,7 +71,7 @@ class CreateReservation extends Component<Props> {
                                 <Item>
                                     <Label>Check-out Date:</Label>
                                     <DatePicker
-                                        defaultDate={this.state.presentDate}
+                                        defaultDate={presentDate}
                                         minimumDate={new Date(2019, 4, 30)}
                                         maximumDate={new Date(2019, 5, 30)}
                                         locale={"en"}
@@ -89,13 +85,13 @@ class CreateReservation extends Component<Props> {
                                         disabled={false}
                                     />
                                 </Item>
-                                <Button disabled={!this.state.name || !this.state.hotelName || !this.state.arrivalDate || !this.state.departureDate} block onPress={() => {
+                                <Button disabled={!name || !hotelName || !arrivalDate || !departureDate} block onPress={() => {
                                     create_reservation({
                                         variables: {
-                                            "hotelName": this.state.hotelName,
-                                            "departureDate": this.state.departureDate,
-                                            "arrivalDate": this.state.arrivalDate,
-                                            "name": this.state.name
+                                            "hotelName": hotelName,
+                                            "departureDate": departureDate,
+                                            "arrivalDate": arrivalDate,
+                                            "name": name
                                         }
                                     })
                                         .then(res => {
@@ -108,7 +104,6 @@ class CreateReservation extends Component<Props> {
                                     <Text>Create Reservation</Text>
                                 </Button>
                             </Form>
-
                         </Content>
                     </Container>
                 )}
